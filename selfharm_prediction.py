@@ -43,6 +43,8 @@ nltk_stopwords=list(set(stopwords.words('english')))
 for word in nltk_stopwords:
     if word not in en_stopwords:
         en_stopwords.append(word)
+        
+path = #directory address
 
 # Class for Torch Model
 class get_torch_data_format(torch.utils.data.Dataset):
