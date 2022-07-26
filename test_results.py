@@ -10,6 +10,9 @@ import glob
 import time
 import filecmp
 
+weblink = #test label submission weblink
+datalink = #updated test data weblink
+
 completed_runs = len(os.listdir('test_data'))
 run = 0
 for iter in range(500):
@@ -33,19 +36,19 @@ for iter in range(500):
         if sum(task_list) == 5:
             break
         if len(glob.glob('results/*svm_e*')) == 1 and task_list[0] == 0:
-            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./results/svm_entropy_500.json https://erisk.irlab.org/challenge-t2/submit/UdnOqz18pprZy5wbRCNEC7YcA81n7IT51L0IQL7Vqp8/0 ')
+            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./{}/0 '.format(weblink))
             task_list[0] = 1
         if len(glob.glob('results/*svm_t*')) == 1 and task_list[1] == 0:
-            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./results/svm_tfidf_200.json https://erisk.irlab.org/challenge-t2/submit/UdnOqz18pprZy5wbRCNEC7YcA81n7IT51L0IQL7Vqp8/1 ')
+            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./{}/1 '.format(weblink))    
             task_list[1] = 1
         if len(glob.glob('results/*rf_e*')) == 1 and task_list[2] == 0:
-            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./results/rf_entropy_2000.json https://erisk.irlab.org/challenge-t2/submit/UdnOqz18pprZy5wbRCNEC7YcA81n7IT51L0IQL7Vqp8/2 ')
+            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./{}/2 '.format(weblink))            
             task_list[2] = 1
         if len(glob.glob('results/*rf_d*')) == 1 and task_list[3] == 0:
-            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./results/rf_doc2vec_70.json https://erisk.irlab.org/challenge-t2/submit/UdnOqz18pprZy5wbRCNEC7YcA81n7IT51L0IQL7Vqp8/3')
+            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./{}/3 '.format(weblink))            
             task_list[3] = 1
         if len(glob.glob('results/*ab_e*')) == 1 and task_list[4] == 0:
-            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./results/ab_entropy_200.json https://erisk.irlab.org/challenge-t2/submit/UdnOqz18pprZy5wbRCNEC7YcA81n7IT51L0IQL7Vqp8/4')   
+            os.system('curl  -H "Content-Type:application/json" -w "%{http_code}" -X POST -d @./{}/4 '.format(weblink))
             task_list[4] = 1
         else:
             time.sleep(0.5)
@@ -53,7 +56,7 @@ for iter in range(500):
     os.system('wait')
     os.chdir('test_data')
     print('Getting Training Data - Next Phase')
-    os.system('wget https://erisk.irlab.org/challenge-t2/getwritings/UdnOqz18pprZy5wbRCNEC7YcA81n7IT51L0IQL7Vqp8')
+    os.system('wget ' + datalink)
     time.sleep(3)
 
     os.rename('UdnOqz18pprZy5wbRCNEC7YcA81n7IT51L0IQL7Vqp8','t2_test_data{}.json'.format(completed_runs+run+1))
